@@ -1,5 +1,5 @@
-from main_window import note_window
-from Loginpage import MainWindow
+from user_menu import note_window
+from main_menu import MainWindow
 from tkinter.filedialog import *
 class main:
 
