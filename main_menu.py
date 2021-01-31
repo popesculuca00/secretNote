@@ -33,7 +33,7 @@ class MainWindow():
         self.cancel = Button(self.window, text="Cancel",
                              width=70, height = 2, padx=10, pady=10,
                              bg="Green",
-                             command=lambda: self.close_video())
+                             command=lambda: self.reinit())#self.cancel_button())
         self.cancel.pack(side=BOTTOM)
 
         self.register=Button( self.window , text = "Register" ,
@@ -45,30 +45,66 @@ class MainWindow():
         self.login = Button( self.window , text = "Log in" ,
                              width=70, height = 2, padx = 10, pady = 10 ,
                              bg = "Green" ,
-                             command= lambda:self.start_video())
+                             command= lambda:self.login_pressed())
         self.login.pack(side = BOTTOM)
 
 
         self.canvas.create_window(900 ,400 )
 
+
+    def reinit(self):
+        self.kill_camera()
+        for elem in self.window.winfo_children()[1:]:
+            elem.destroy()
+        self.exit   = Button(self.window , text = "Quit",
+                             width=70, height = 2, padx=10, pady=10,
+                             bg = "Green",
+                             command=lambda: self.window.quit())
+        self.exit.pack(side = BOTTOM)
+        self.cancel = Button(self.window, text="Cancel",
+                             width=70, height = 2, padx=10, pady=10,
+                             bg="Green",
+                             command=lambda: self.reinit())#self.cancel_button())
+        self.cancel.pack(side=BOTTOM)
+
+        self.register=Button( self.window , text = "Register" ,
+                             width=70, height = 2, padx = 10, pady = 10 ,
+                             bg = "Green" ,
+                             command= lambda:self.register_menu())
+        self.register.pack(side = BOTTOM)
+
+        self.login = Button( self.window , text = "Log in" ,
+                             width=70, height = 2, padx = 10, pady = 10 ,
+                             bg = "Green" ,
+                             command= lambda:self.login_pressed())
+        self.login.pack(side = BOTTOM)
+
     def kill_camera(self):
         try:
+            self.continue_feed = 0
             self.cap.release()
-        except:
-            pass
+        except: pass
+
+
 
     def show_login(self):
         self.window.mainloop()
-        try:
-             self.snapshot.destroy()
-        except:
-            pass
+        self.reinit()
         self.canvas.destroy()
         self.login.destroy()
         self.register.destroy()
         self.exit.destroy()
         self.cancel.destroy()
 
+    def login_pressed(self):
+        self.snapshot = Button(self.window, text="Authentificate",
+                               width=70, height=2, padx=10, pady=10,
+                               bg="Green",
+                               command=lambda: self.authentificate())
+        self.login.destroy()
+        self.register.destroy()
+        self.snapshot.pack(side=BOTTOM)
+        self.start_video()
 
 
     def close_video(self):
@@ -81,6 +117,7 @@ class MainWindow():
         if self.user:
             self.window.quit()
 
+
     def get_user(self):
         return self.user
 
@@ -88,11 +125,7 @@ class MainWindow():
 
         if self.continue_feed == 0:
             self.cap = cv2.VideoCapture(0)
-            self.snapshot = Button( self.window , text = "Authentificate" ,
-                                    width=70, height = 2, padx = 10, pady = 10 ,
-                                    bg = "Green" ,
-                                    command= lambda:self.authentificate())
-            self.snapshot.pack(side = BOTTOM)
+
 
         self.continue_feed = 1
         self.update_image()
@@ -116,21 +149,32 @@ class MainWindow():
 
 
         else :
-            self.snapshot.destroy()
+            try:
+                self.snapshot.destroy()
+            except: pass
             self.image = 0
+
 
     def register_menu(self):
         if self.cancel_mode == 1 :
             self.login.forget()
             self.new_user= Text(self.window , height = 1 , padx = 100)   ############################################3
+            self.register.config(text = "Press")
             self.new_user.config(font = 32)
             self.new_user.pack(side = BOTTOM)
             print("Register")
+            self.start_video()
             self.cancel_mode = 2
+        if self.cancel_mode == 2 :
+            pass
+
+    def cancel_button(self):
+        try:
+            self.close_video()
+            self.new_user.destroy()
+            self.register.config(text = "Register")
+            self.login.pack(side = BOTTOM)
+        except:
+            self.close_video()
 
 
-    # def cancel_button(self):
-    #     if self.cancel_mode == 1 :
-    #         self.close_video()
-    #     if self.cancel_mode == 2 :
-    #         self.register_menu()
