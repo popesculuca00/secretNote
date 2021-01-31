@@ -26,6 +26,7 @@ class main:
 if __name__ == '__main__':
     app = main()
     app.start_app()
+    os.remove("auth_pers.jpg")
 
 
 

@@ -25,8 +25,8 @@ class face_analyzer:
 
     def find_best_match(self):
         self.scores = {}
-        for person in os.listdir("C:\\Users\\Luca\\Desktop\\gad_final\\userdata"):
-            self.get_cos_dif("C:\\Users\\Luca\\Desktop\\gad_final\\userdata" + "\\" + person + "\\" + "userface.jpg")
+        for person in os.listdir("userdata"):
+            self.get_cos_dif("userdata" + "\\" + person + "\\" + "userface.jpg")
         mini = 1
         mini_link = ""
         for person in self.scores:
