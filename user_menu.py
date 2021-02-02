@@ -4,7 +4,7 @@ from tkinter import *
 from tkinter.messagebox import *
 from tkinter.filedialog import *
 from user_utils import load_user_data , save_user_data
-
+from tkinter.messagebox import showinfo
 
 def donothing():
     pass
@@ -41,7 +41,7 @@ class note_window:
 
         self.menubar = Menu(self.root)
         accmenu = Menu(self.menubar, tearoff=0)
-        editmenu = Menu(self.menubar, tearoff=0)
+
         helpmenu = Menu(self.menubar, tearoff=0)
         prefmenu = Menu(self.menubar, tearoff=0)
 
@@ -65,26 +65,14 @@ class note_window:
 
 
         accmenu.add_separator()
-        accmenu.add_command(label = "Save"   , command = lambda:save_user_data( self.textarea.get(1.0 , "end-1c") , self.user , self.nmode ))
-        accmenu.add_command(label ="Log out" , command = lambda:self.logout())
+        accmenu.add_command(label = "Save"   , command = lambda :save_user_data( self.textarea.get(1.0 , "end-1c") , self.user , self.nmode ))
+        accmenu.add_command(label ="Log out" , command = lambda :self.logout())
         accmenu.add_command(label=     "Exit", command=self.root.quit)
 
         self.menubar.add_cascade(label="Account", menu=accmenu)
 
-        editmenu.add_command(label="Undo", command=donothing)
 
-        editmenu.add_separator()
-
-        editmenu.add_command(label="Cut", command=donothing)
-        editmenu.add_command(label="Copy", command=donothing)
-        editmenu.add_command(label="Paste", command=donothing)
-        editmenu.add_command(label="Delete", command=donothing)
-        editmenu.add_command(label="Select All", command=donothing)
-
-        self.menubar.add_cascade(label="Edit", menu=editmenu)
-
-        helpmenu.add_command(label="Help Index", command=donothing)
-        helpmenu.add_command(label="About...", command=donothing)
+        helpmenu.add_command(label="About...", command=lambda :self.about_menu())
         self.menubar.add_cascade(label="Help", menu=helpmenu)
 
         self.root.config(menu=self.menubar)
@@ -111,3 +99,5 @@ class note_window:
     def run(self):
         self.root.mainloop()
 
+    def about_menu(self):
+            showinfo("About this app", "App was created using Tkinter.")
