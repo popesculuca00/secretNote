@@ -41,7 +41,7 @@ class face_analyzer:
             return "\\".join(mini_link.split("\\")[:-1])+ "\\" + "text.txt"
         return None
 
-    def get_cos_dif(self , cnt_person):# , imgs ):
+    def get_cos_dif(self , cnt_person):
         self.face_not_found = 0
         self.ppl = []
         self.ppl.append(cv2.imread(cnt_person))
@@ -71,9 +71,6 @@ if __name__=="__main__":
 
     cap = cv2.VideoCapture(0)
     image = cv2.flip(cv2.cvtColor(cap.read()[1], cv2.COLOR_BGR2RGB), 1)
-    #plt.imsave("C:\\Users\\Luca\\Desktop\\gad_final\\userdata\\0\\faces\\img_cnt.jpg" , image)
-
-    #test3 = cv2.imread("C:\\Users\\Luca\\Desktop\\gad_final\\userdata\\0\\faces\\img_cnt.jpg")
     test3 = image
 
     print(a.get_cos_dif([test1, test2]))

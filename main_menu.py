@@ -19,10 +19,9 @@ class MainWindow():
         self.cap = cv2.VideoCapture(0)
         self.width = self.cap.get(cv2.CAP_PROP_FRAME_WIDTH)
         self.height = self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
-        self.interval = 20 # Interval in ms to get the latest frame
+        self.interval = 20
         self.continue_feed = 0
 
-        # Create canvas for image
         self.canvas = tk.Canvas(self.window, width=self.width, height=self.height , bg = "Black" )
         self.canvas.pack(side = RIGHT , fill = BOTH)
         self.canvas.create_text(320, 250, fill="darkgreen", font="Times 30 italic bold",
@@ -35,7 +34,7 @@ class MainWindow():
         self.cancel = Button(self.window, text="Cancel",
                              width=70, height = 2, padx=10, pady=10,
                              bg="Green",
-                             command=lambda: self.reinit())#self.cancel_button())
+                             command=lambda: self.reinit())
         self.cancel.pack(side=BOTTOM)
 
         self.register=Button( self.window , text = "Register" ,
@@ -69,7 +68,7 @@ class MainWindow():
         self.cancel = Button(self.window, text="Cancel",
                              width=70, height = 2, padx=10, pady=10,
                              bg="Green",
-                             command=lambda: self.reinit())#self.cancel_button())
+                             command=lambda: self.reinit())
         self.cancel.pack(side=BOTTOM)
 
         self.register=Button( self.window , text = "Register" ,
@@ -166,12 +165,7 @@ class MainWindow():
     def register_menu(self):
         if self.register_showing == 0 :
             self.login.forget()
-            #self.new_user= Text(self.window , height = 1 , padx = 100)   ############################################3
             self.register.config(text = "Create account" , command = lambda: self.register_new_user())
-            #self.new_user.config(font = 32)
-
-            #self.new_user.pack(side = BOTTOM)
-
             self.new_user = Entry(self.window, width=40 , font = 32)
             self.new_user.pack(side = BOTTOM)
             self.new_user.insert(0, "Enter your name and take a photo")

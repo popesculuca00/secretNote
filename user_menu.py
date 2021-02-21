@@ -6,9 +6,6 @@ from tkinter.filedialog import *
 from user_utils import load_user_data , save_user_data
 from tkinter.messagebox import showinfo
 
-def donothing():
-    pass
-
 class note_window:
     def __init__(self , width , height , user , root):
         self.user = user
@@ -61,20 +58,14 @@ class note_window:
         fontsize.add_command(label="Very big font",command = self.textarea.config(font = 40))
 
         self.menubar.add_cascade(label = "Preferences" , menu = prefmenu)
-
-
-
         accmenu.add_separator()
         accmenu.add_command(label = "Save"   , command = lambda :save_user_data( self.textarea.get(1.0 , "end-1c") , self.user , self.nmode ))
         accmenu.add_command(label ="Log out" , command = lambda :self.logout())
         accmenu.add_command(label=     "Exit", command=self.root.quit)
-
+        accmenu.add_command(label="Delete accout", command = lambda:self.delete_accout() )
         self.menubar.add_cascade(label="Account", menu=accmenu)
-
-
         helpmenu.add_command(label="About...", command=lambda :self.about_menu())
         self.menubar.add_cascade(label="Help", menu=helpmenu)
-
         self.root.config(menu=self.menubar)
 
     def logout(self):
@@ -101,3 +92,13 @@ class note_window:
 
     def about_menu(self):
             showinfo("About this app", "App was created using Tkinter.")
+
+    def delete_accout(self):
+        self.menubar.destroy()
+        self.textarea.destroy()
+        path = "\\".join(self.user.split("\\")[:-1])
+        for file in os.listdir(path):
+            os.remove(path + "\\" + file)
+        os.rmdir(path)
+        self.root.quit()
+        return 0
