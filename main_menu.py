@@ -4,7 +4,6 @@ from PIL import Image, ImageTk
 import cv2
 from face_detector import face_analyzer
 import numpy as np
-from user_utils import load_user_data
 import os
 
 class MainWindow():

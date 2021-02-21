@@ -1,8 +1,5 @@
 import os
-
-
 def load_user_data( user = None ):
-    "' returns a string containing user preferences and previous text'"
     if user == None :
         return "" , {"nightmode" : "off"}
 
