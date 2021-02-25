@@ -5,7 +5,7 @@ import cv2
 from face_detector import face_analyzer
 import numpy as np
 import os
-from encrypt_decrypt import encoder
+
 
 class MainWindow():
     def __init__(self, window):
@@ -187,8 +187,7 @@ class MainWindow():
         self.image_raw = cv2.cvtColor(np.float32(self.image_raw) , cv2.COLOR_BGR2RGB)
         cv2.imwrite(f"userdata//{v}//userface.jpg" , self.image_raw)
         f = open(f"userdata//{v}//text.txt" , "w")
-        enc = encoder(v)
-        #print(v)
-        f.write(enc.get_enc_text("off\nYou don't have any previously saved text"))
+
+        f.write("off\nYou don't have any previously saved text")
         f.close()
         self.reinit()

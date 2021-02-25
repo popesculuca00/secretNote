@@ -52,10 +52,10 @@ class note_window:
 
         fontsize = Menu(prefmenu , tearoff = 0)
         prefmenu.add_cascade(label = "Font size" , menu = fontsize)
-        fontsize.add_command(label="Small font" ,  command = self.textarea.config(font = 10))
-        fontsize.add_command(label="Medium font",  command = self.textarea.config(font = 20))
-        fontsize.add_command(label="Big font"   ,  command = self.textarea.config(font = 30))
-        fontsize.add_command(label="Very big font",command = self.textarea.config(font = 40))
+        fontsize.add_command(label="Small font" ,  command = lambda : self.textarea.config(font = 10))
+        fontsize.add_command(label="Medium font",  command = lambda : self.textarea.config(font = 20))
+        fontsize.add_command(label="Big font"   ,  command = lambda : self.textarea.config(font = 30))
+        fontsize.add_command(label="Very big font",command = lambda : self.textarea.config(font = 40))
 
         self.menubar.add_cascade(label = "Preferences" , menu = prefmenu)
         accmenu.add_separator()
@@ -91,7 +91,7 @@ class note_window:
         self.root.mainloop()
 
     def about_menu(self):
-            showinfo("About this app", "App was created using Tkinter.")
+            showinfo("About this app", "Author:Luca Popescu\nCreated with Tkinter.")
 
     def delete_accout(self):
         self.menubar.destroy()
